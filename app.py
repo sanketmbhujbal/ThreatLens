@@ -30,7 +30,7 @@ seven_days_ago = current_date - timedelta(days=7)
 if st.sidebar.button("Fetch Threat Feeds"):
     with st.spinner("Fetching and summarizing feeds..."):
         feeds = fetch_rss_feeds(rss_urls)
-        st.write(f"Total articles fetched: {len(feeds)}")  # Debug: Show the total number of fetched articles
+        #st.write(f"Total articles fetched: {len(feeds)}")  # Debug: Show the total number of fetched articles
 
         if not feeds:
             st.write("No recent feeds found.")
@@ -48,7 +48,7 @@ if st.sidebar.button("Fetch Threat Feeds"):
                 except ValueError as e:
                     st.write(f"Error parsing date for article {feed['title']}: {e}")
 
-            st.write(f"Total articles in last 7 days: {len(filtered_feeds)}")  # Debug: Show the number of filtered articles
+            #st.write(f"Total articles in last 7 days: {len(filtered_feeds)}")  # Debug: Show the number of filtered articles
 
             if not filtered_feeds:
                 st.write("No articles from the last 7 days.")
