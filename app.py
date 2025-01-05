@@ -8,7 +8,8 @@ from summarizer import summarize_content
 from risk_score import generate_risk_score, assign_severity_tag
 
 # Streamlit app title
-st.set_page_config(layout="wide")
+st.set_page_config(page_title="ThreatLens", page_icon="ThreatLens_logo.ico",layout="wide")
+st.sidebar.image('ThreatLens_logo.webp', width=150)
 st.title("ThreatLens - Threat Intelligence Dashboard")
 st.sidebar.header("ThreatLens \n\n",divider="orange")
 st.sidebar.header("Settings \n\n")
