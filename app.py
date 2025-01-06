@@ -48,15 +48,19 @@ def display_severity_bar(risk_score):
     
     if severity_percent >= 80:
         severity_type = "Critical"
+        severity_color = "Red"
 
     elif severity_percent >= 60 :
         severity_type = "High"
+        severity_color = "Orange"
 
     elif severity_percent >= 40:
         severity_type = "Medium"
+        severity_color = "Yellow"
 
     else:
         severity_type = "Low"
+        severity_color = "Green"
 
     # Display the severity label and percentage next to the bar
     #st.markdown(f"**Severity:** {severity_type} ({severity_percent:.0f}%)")
@@ -66,7 +70,7 @@ def display_severity_bar(risk_score):
     st.markdown(f"""
     <style>
         div.stProgress > div > div > div > div {{
-            background-color: red;
+            background-color: navy-blue;
         }}
     </style>
     """, unsafe_allow_html=True)
@@ -74,7 +78,7 @@ def display_severity_bar(risk_score):
     progress_bar.progress(severity_percent / 100)
     
     # Display the severity as a label
-    st.markdown(f"<div style='text-align: center; font-size: 15px; font-weight: bold;'> Severity: {severity_type} ({severity_percent:.0f}%)</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='text-align: center; font-size: 15px; color: {severity_color}; font-weight: bold;'> Severity: {severity_type} ({severity_percent:.0f}%)</div>", unsafe_allow_html=True)
 
 
 
@@ -133,4 +137,3 @@ if st.sidebar.button("Fetch Threat Feeds"):
                     # Display severity visually as a progress bar
                     display_severity_bar(risk_score)
                     st.write("---")
-
