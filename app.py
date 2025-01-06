@@ -16,6 +16,17 @@ st.sidebar.image('ThreatLens_logo.webp', width=100)
 st.title("ThreatLens - Threat Intelligence Dashboard")
 st.sidebar.header("ThreatLens \n\n",divider="orange")
 st.sidebar.header("Settings \n\n")
+st.markdown(
+    """
+    <style>
+        [data-testid="stSidebar"] {
+            
+            width: 400px;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Input RSS feed URLs
 rss_urls = st.sidebar.text_area(
@@ -35,27 +46,37 @@ def display_severity_bar(risk_score):
     # Normalize the risk_score to a percentage
     severity_percent = (risk_score / 10) * 100
     
-    # Determine the severity type based on risk score
-    if risk_score >= 8:
+    if severity_percent >= 80:
         severity_type = "Critical"
-    elif risk_score >= 6:
+
+    elif severity_percent >= 60 :
         severity_type = "High"
-    elif risk_score >= 4:
+
+    elif severity_percent >= 40:
         severity_type = "Medium"
+
     else:
         severity_type = "Low"
 
-    # Create a Streamlit progress bar widget (to avoid layout shifting)
-    progress_bar = st.progress(0)  # Initialize the progress bar to 0
+    # Display the severity label and percentage next to the bar
+    #st.markdown(f"**Severity:** {severity_type} ({severity_percent:.0f}%)")
 
+    # Create a Streamlit progress bar widget (to avoid layout shifting)
+    progress_bar = st.progress(0)  
+    st.markdown(f"""
+    <style>
+        div.stProgress > div > div > div > div {{
+            background-color: red;
+        }}
+    </style>
+    """, unsafe_allow_html=True)
     # Update the progress bar based on risk score (severity percentage)
     progress_bar.progress(severity_percent / 100)
-
-    # Display the severity label and percentage next to the bar
-    st.markdown(f"**Severity:** {severity_type} ({severity_percent:.0f}%)")
     
     # Display the severity as a label
-    st.markdown(f"<div style='text-align: center; font-size: 12px; color: gray;'>Severity: {severity_type}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='text-align: center; font-size: 15px; font-weight: bold;'> Severity: {severity_type} ({severity_percent:.0f}%)</div>", unsafe_allow_html=True)
+
+
 
 if st.sidebar.button("Fetch Threat Feeds"):
     with st.spinner("Fetching and summarizing feeds..."):
@@ -105,9 +126,9 @@ if st.sidebar.button("Fetch Threat Feeds"):
                     st.write(f"**Link:** [Read More]({feed['link']})")
                     st.write(f"**Summary:** {summary}")
                     st.write(f"**Risk Score:** {risk_score} / 10")
-                    st.write(f"**Explanation:** {explanation}")  
+                    st.write(f"{explanation}")  
                     st.write(f"**Keywords:** {', '.join(keywords)}")  
-                    #st.write(f"**Severity Level:** {severity}")
+                    #st.write(f"**Severity:** {severity}")
                     
                     # Display severity visually as a progress bar
                     display_severity_bar(risk_score)
