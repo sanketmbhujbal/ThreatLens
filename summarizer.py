@@ -11,7 +11,7 @@ def summarize_content(content):
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "Summarize articles to provide most important details."},
+                {"role": "system", "content": "Summarize articles briefly to provide most important details."},
                 {"role": "user", "content": content}
             ]
         )
