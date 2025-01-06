@@ -15,7 +15,7 @@ Summarization: Uses OpenAI’s models to summarize articles and extract key deta
 
 Risk Scoring: Assigns risk scores to articles based on severity and relevance.
 
-Prioritization: Prioritizes threats based on their potential impact to organizations.
+Prioritization: Prioritizes threats based on their Severity and potential impact to organizations.
 
 Customization: Provides options to adjust settings such as the number of articles to display and which sources to track.
 
